@@ -1,4 +1,4 @@
-position	vowel	frequency
+Position	Vowel	Frequency
 1	a	17.96
 1	ā	2.44
 1	ä	3.61
