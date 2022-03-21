@@ -9,10 +9,21 @@ root = Tk()
 root.withdraw()
 
 
+def monophtongize(diph):
+    diph = diph.replace('’', '')
+    if len(diph) == 1:
+        return diph
+    if (long := re.search('[āǟēīōȱȭǭū]', diph)):
+        return long.group()
+    if (close := re.search('[iu]', diph)):
+        return monophtongize(diph[:close.span()[0]] + diph[close.span()[1]:])
+    return diph[0]
+
+
 def count(words):
     fv = {}
     for word in words:
-        vwls = re.findall(vowel, word)
+        vwls = [monophtongize(vw[0]) for vw in re.findall(vowel, word)]
         if len(vwls) < 2:
             continue
         key = f'{vwls[0]},{vwls[1]}'
